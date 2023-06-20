@@ -11,8 +11,8 @@ from . import schemas, models, database
 oauth_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
 SECRET_KEY = environ.SK
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ALGORITHM = environ.JTW_ALGORITHM
+ACCESS_TOKEN_EXPIRE_MINUTES = environ.JWT_EXPIRATION_TIME
 
 
 def create_access_token(data: dict):
