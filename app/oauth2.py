@@ -16,8 +16,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES = environ.JWT_EXPIRATION_TIME
 
 
 def create_access_token(data: dict):
-    """ Create JWT token """
-
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({'exp': expire})
