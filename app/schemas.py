@@ -37,6 +37,13 @@ class PostResponse(PostBase):
         orm_mode = True
 
 
+class PostOut(BaseModel):
+    Post: PostResponse
+    votes: int
+
+    class Config:
+        orm_mode = True
+
 class UserCreate(BaseModel):
     email: EmailStr
     password: str
