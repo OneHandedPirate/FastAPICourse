@@ -18,7 +18,8 @@ router = APIRouter(
 def get_posts(db: Session = Depends(get_db),
               limit: int = 10,
               offset: int = 0,
-              search: Optional[str] = ""):
+              search: Optional[str] = "",
+              current_user: int = Depends(oauth2.get_current_user)):
     # cursor.execute("""SELECT * FROM post""")
     # posts = cursor.fetchall()
 
@@ -55,7 +56,8 @@ def create_post(post: schemas.PostCreate, db: Session = Depends(get_db),
 
 
 @router.get("/latest")
-def get_latest_post(db: Session = Depends(get_db)):
+def get_latest_post(db: Session = Depends(get_db),
+                    current_user: int = Depends(oauth2.get_current_user)):
     """Above next path to avoid error"""
 
     latest_post = db.query(models.Post).order_by(models.Post.id.desc()).first()
@@ -63,7 +65,8 @@ def get_latest_post(db: Session = Depends(get_db)):
 
 
 @router.get("/{id}", response_model=schemas.PostOut)
-def get_post(id: int, db: Session = Depends(get_db)):
+def get_post(id: int, db: Session = Depends(get_db),
+             current_user: int = Depends(oauth2.get_current_user)):
     # cursor.execute("SELECT * FROM post WHERE id = %s", (str(id),))
     # post = cursor.fetchone()
 
