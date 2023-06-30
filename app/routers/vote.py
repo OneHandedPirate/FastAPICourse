@@ -7,6 +7,7 @@ router = APIRouter(
     tags=['Vote']
 )
 
+
 @router.post('', status_code=status.HTTP_201_CREATED)
 def vote(vote: schemas.Vote,
          db: Session = Depends(database.get_db),
@@ -21,11 +22,12 @@ def vote(vote: schemas.Vote,
     vote_query = db.query(models.Vote).filter(models.Vote.post_id == vote.post_id,
                                      models.Vote.user_id == current_user.id)
     found_vote = vote_query.first()
-    if (vote.dir == 1):
+
+    if vote.dir == 1:
         if found_vote:
             raise HTTPException(status_code=status.HTTP_409_CONFLICT,
                                 detail=f'User {current_user.id} has already voted on this post')
-        new_vote = models.Vote(post_id = vote.post_id, user_id = current_user.id)
+        new_vote = models.Vote(post_id=vote.post_id, user_id=current_user.id)
         db.add(new_vote)
         db.commit()
 
