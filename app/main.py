@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .routers import post, user, auth, vote
 from . import models
-from database import engine
+from .database import engine
 
 # Since we have alembic now, we don't need this line
 models.Base.metadata.create_all(bind=engine)
