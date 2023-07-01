@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 
 import environ
 
-SQLALCHEMY_DATABASE_URL = f"postgresql://{environ.POSTGRES_USER}:" \
+SQLALCHEMY_DATABASE_URL = f"postgres://{environ.POSTGRES_USER}:" \
                           f"{environ.POSTGRES_PASSWORD}@" \
                           f"{environ.POSTGRES_HOST}/" \
                           f"{environ.POSTGRES_DB}"
